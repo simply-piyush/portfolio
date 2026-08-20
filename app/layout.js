@@ -29,6 +29,15 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${silkscreen.variable} ${spaceGrotesk.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link
+          rel="preload"
+          href="/frames/frame_000_delay-0.043s.webp"
+          as="image"
+          type="image/webp"
+          fetchPriority="high"
+        />
+      </head>
       <body className="min-h-full flex flex-col font-silkscreen selection:bg-black selection:text-white">
         {children}
       </body>
