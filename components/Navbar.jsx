@@ -14,6 +14,7 @@ const NAV_ITEMS = [
 
 export default function Navbar() {
   const [activeTab, setActiveTab] = useState("home");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const activeTabRef = useRef("home");
   const navRefs = useRef({});
   const containerRef = useRef(null);
@@ -26,7 +27,7 @@ export default function Navbar() {
     activeTabRef.current = activeTab;
   }, [activeTab]);
 
-  // Smoothly glide the pill using GSAP with fluid easing
+  // Smoothly glide the pill using GSAP with fluid easing on desktop
   const movePill = useCallback((tabId, immediate = false) => {
     const activeEl = navRefs.current[tabId];
     const containerEl = containerRef.current;
@@ -145,6 +146,7 @@ export default function Navbar() {
   const handleNavClick = (id) => {
     setActiveTab(id);
     movePill(id);
+    setMobileMenuOpen(false);
     targetScrollIdRef.current = id;
 
     const element = document.getElementById(id);
@@ -163,42 +165,112 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 select-none max-w-[94vw]">
-      <nav
-        ref={containerRef}
-        className="relative inline-flex items-center bg-white border-2 border-black rounded-full p-1 sm:p-1.5 shadow-md overflow-x-auto"
-      >
-        {/* Hardware-Accelerated GSAP Sliding Active Black Pill */}
-        <span
-          ref={pillRef}
-          aria-hidden="true"
-          className="absolute top-1 bottom-1 sm:top-1.5 sm:bottom-1.5 left-0 bg-black rounded-full pointer-events-none opacity-0"
-        />
+    <>
+      {/* DESKTOP NAVBAR (MD and UP): Sliding Pill Capsule */}
+      <header className="hidden md:block fixed top-6 left-1/2 -translate-x-1/2 z-50 select-none max-w-[94vw]">
+        <nav
+          ref={containerRef}
+          className="relative inline-flex items-center bg-white border-2 border-black rounded-full p-1.5 shadow-md overflow-x-auto"
+        >
+          {/* Hardware-Accelerated GSAP Sliding Active Black Pill */}
+          <span
+            ref={pillRef}
+            aria-hidden="true"
+            className="absolute top-1.5 bottom-1.5 left-0 bg-black rounded-full pointer-events-none opacity-0"
+          />
 
-        <ul className="relative flex items-center list-none m-0 p-0 font-silkscreen text-[10px] sm:text-xs md:text-sm font-bold">
-          {NAV_ITEMS.map((item) => {
-            const isActive = activeTab === item.id;
+          <ul className="relative flex items-center list-none m-0 p-0 font-silkscreen text-xs md:text-sm font-bold">
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeTab === item.id;
 
-            return (
-              <li key={item.id}>
-                <button
-                  ref={(el) => {
-                    if (el) navRefs.current[item.id] = el;
-                  }}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`relative z-10 px-3 sm:px-5 md:px-6 py-1.5 sm:py-2 rounded-full uppercase tracking-wider transition-colors duration-300 cursor-pointer ${
-                    isActive
-                      ? "text-white"
-                      : "text-black hover:text-black/60"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-    </header>
+              return (
+                <li key={item.id}>
+                  <button
+                    ref={(el) => {
+                      if (el) navRefs.current[item.id] = el;
+                    }}
+                    onClick={() => handleNavClick(item.id)}
+                    className={`relative z-10 px-4 md:px-6 py-2 rounded-full uppercase tracking-wider transition-colors duration-300 cursor-pointer ${
+                      isActive
+                        ? "text-white"
+                        : "text-black hover:text-black/60"
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </header>
+
+      {/* MOBILE NAVBAR (BELOW MD): 8-Bit Retro Header with Floating Dropdown */}
+      <header className="block md:hidden fixed top-3 left-0 right-0 z-50 px-4 select-none pointer-events-none">
+        <div className="flex items-center justify-between max-w-md mx-auto pointer-events-auto">
+          {/* Current Section Badge / Brand */}
+          <button
+            onClick={() => handleNavClick("home")}
+            className="bg-white text-black border-2 border-black px-3.5 py-1.5 pixel-shadow-sm font-silkscreen font-bold text-xs uppercase tracking-wider flex items-center gap-2 active:scale-95 transition-transform cursor-pointer"
+          >
+            <span className="w-2 h-2 bg-black inline-block animate-pulse" />
+            <span>{NAV_ITEMS.find((n) => n.id === activeTab)?.label || "MENU"}</span>
+          </button>
+
+          {/* Menu Toggle Button */}
+          <button
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            aria-label="Toggle navigation menu"
+            className="bg-black text-white border-2 border-black px-3.5 py-1.5 pixel-shadow-sm font-silkscreen font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 active:scale-95 transition-transform cursor-pointer"
+          >
+            <span>{mobileMenuOpen ? "✕" : "☰"}</span>
+            <span>{mobileMenuOpen ? "CLOSE" : "MENU"}</span>
+          </button>
+        </div>
+
+        {/* 8-Bit Pixel Dropdown Menu */}
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <div
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/40 z-40 backdrop-blur-[2px] pointer-events-auto"
+            />
+
+            {/* Menu Panel */}
+            <div className="relative z-50 mt-2 max-w-md mx-auto bg-white border-3 border-black pixel-shadow p-3 space-y-1.5 animate-in fade-in slide-in-from-top-2 duration-150 pointer-events-auto">
+              <div className="flex items-center justify-between border-b-2 border-black pb-2 px-1 mb-2">
+                <span className="font-silkscreen text-[11px] font-bold text-black/70 uppercase">
+                  NAVIGATION MAP
+                </span>
+                <span className="font-silkscreen text-[10px] font-bold bg-black text-white px-1.5 py-0.5">
+                  8-BIT
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                {NAV_ITEMS.map((item) => {
+                  const isActive = activeTab === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => handleNavClick(item.id)}
+                      className={`font-silkscreen font-bold text-xs py-2.5 px-3 border-2 border-black text-left flex items-center justify-between uppercase transition-all duration-100 ${
+                        isActive
+                          ? "bg-black text-white pixel-shadow-sm"
+                          : "bg-white text-black hover:bg-black/5 active:bg-black active:text-white"
+                      }`}
+                    >
+                      <span>{item.label}</span>
+                      {isActive && <span className="text-[10px]">▶</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        )}
+      </header>
+    </>
   );
 }

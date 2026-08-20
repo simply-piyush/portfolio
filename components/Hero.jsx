@@ -79,32 +79,34 @@ export default function Hero({
   return (
     <section
       ref={containerRef}
-      className={`relative min-h-[500vh] flex flex-col items-center justify-start text-center px-6 sm:px-10 md:px-16 lg:px-20 pt-48 sm:pt-64 pb-20 overflow-hidden select-none font-silkscreen ${className}`}
+      className={`relative min-h-[140vh] md:min-h-[500vh] flex flex-col items-center justify-start overflow-hidden select-none font-silkscreen ${className}`}
     >
-      <div className="relative z-10 flex flex-col items-center max-w-5xl mx-auto space-y-6 md:space-y-8">
-        {/* Hello World! - Pixel Speech Box */}
-        <div ref={greetingRef} className="inline-block">
-          <div className="relative group bg-white text-black border-3 border-black px-5 py-2.5 pixel-shadow transition-transform duration-200 hover:scale-105">
-            <span className="font-silkscreen text-xs sm:text-sm md:text-base font-semibold tracking-widest uppercase">
-              {greeting}
-            </span>
+      <div className="min-h-screen w-full flex flex-col items-center justify-center text-center px-4 sm:px-10 md:px-16 lg:px-20 py-16">
+        <div className="relative z-10 flex flex-col items-center max-w-5xl mx-auto space-y-6 md:space-y-8">
+          {/* Hello World! - Pixel Speech Box */}
+          <div ref={greetingRef} className="inline-block">
+            <div className="relative group bg-white text-black border-3 border-black px-4 py-2 sm:px-5 sm:py-2.5 pixel-shadow transition-transform duration-200 hover:scale-105">
+              <span className="font-silkscreen text-xs sm:text-sm md:text-base font-semibold tracking-widest uppercase">
+                {greeting}
+              </span>
 
-            {/* Speech bubble pixel tail */}
-            <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[10px] border-t-black" />
-            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[7px] border-t-white" />
+              {/* Speech bubble pixel tail */}
+              <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[10px] border-t-black" />
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[7px] border-t-white" />
+            </div>
           </div>
-        </div>
 
-        {/* Im Piyush Singh - Silkscreen Headline */}
-        <div ref={nameRef} className="max-w-4xl">
-          <h1 className="font-silkscreen font-bold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-black leading-tight">
-            {name}
-          </h1>
-        </div>
+          {/* Im Piyush Singh - Silkscreen Headline */}
+          <div ref={nameRef} className="max-w-4xl px-2">
+            <h1 className="font-silkscreen font-bold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-black leading-tight sm:leading-tight">
+              {name}
+            </h1>
+          </div>
 
-        {/* LinkedIn & GitHub Links */}
-        <div ref={linksRef} className="pt-2 sm:pt-4">
-          <SocialLinks links={links} />
+          {/* LinkedIn & GitHub Links */}
+          <div ref={linksRef} className="pt-2 sm:pt-4">
+            <SocialLinks links={links} />
+          </div>
         </div>
       </div>
     </section>

@@ -95,8 +95,8 @@ export default function Projects({ className = "" }) {
           duration: 0.8,
           ease: "back.out(1.4)",
           scrollTrigger: {
-            trigger: cardRef.current,
-            start: "top 90%",
+            trigger: containerRef.current,
+            start: "top 85%",
             toggleActions: "play none none reverse",
           },
         }
@@ -149,79 +149,96 @@ export default function Projects({ className = "" }) {
     changeSlide(nextIdx, 1);
   };
 
+  const touchStartXRef = useRef(0);
+
+  const handleTouchStart = (e) => {
+    touchStartXRef.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    const diff = touchStartXRef.current - e.changedTouches[0].clientX;
+    if (diff > 45) {
+      handleNext();
+    } else if (diff < -45) {
+      handlePrev();
+    }
+  };
+
   const currentProject = PROJECTS[currentIndex];
 
   return (
     <section
       ref={containerRef}
-      className={`min-h-[230vh] flex flex-col justify-start px-6 sm:px-10 md:px-16 lg:px-20 pt-32 sm:pt-36 pb-20 ${className}`}
+      className={`min-h-fit md:min-h-[230vh] flex flex-col justify-start px-4 xs:px-6 sm:px-10 md:px-16 lg:px-20 py-20 sm:py-24 md:pt-36 md:pb-20 ${className}`}
     >
       {/* 50vw container aligned to the left */}
-      <div className="w-full md:max-w-[50vw] text-left space-y-8">
+      <div className="w-full md:max-w-[50vw] text-left space-y-6 sm:space-y-8">
         {/* Header */}
-        <div ref={headerRef} className="space-y-3">
+        <div ref={headerRef} className="space-y-2 sm:space-y-3">
           <h2
-            className="font-silkscreen font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight uppercase leading-tight"
+            className="font-silkscreen font-bold text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight uppercase leading-tight"
             style={{
               textShadow: "4px 4px 0px #000000",
             }}
           >
             FEATURED PROJECTS
           </h2>
-          <div className="w-20 sm:w-28 h-2 bg-white mt-3 pixel-shadow" />
+          <div className="w-16 sm:w-28 h-1.5 sm:h-2 bg-white mt-2 sm:mt-3 pixel-shadow" />
         </div>
 
         {/* Carousel Outer Wrapper */}
-        <div className="space-y-6">
-          {/* Main 8-bit Project Card with Fixed Dimensions */}
+        <div className="space-y-4 sm:space-y-6">
+          {/* Main 8-bit Project Card with Fixed Dimensions and Swipe Gestures */}
           <div
             ref={cardRef}
-            className="relative bg-white text-black border-4 border-black pixel-shadow p-6 sm:p-8 md:p-10 min-h-[460px] sm:min-h-[490px] md:min-h-[520px] flex flex-col justify-between select-none"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            className="relative bg-white text-black border-4 border-black pixel-shadow p-4 xs:p-6 sm:p-8 md:p-10 min-h-[420px] sm:min-h-[480px] md:min-h-[520px] flex flex-col justify-between select-none"
           >
             {/* Top & Middle Content */}
-            <div className="space-y-5">
+            <div className="space-y-3.5 sm:space-y-5">
               {/* Top Bar with Project Number and Category */}
-              <div className="flex items-center justify-between border-b-4 border-black pb-4 flex-wrap gap-2">
-                <div className="flex items-center gap-3">
-                  <span className="bg-black text-white font-silkscreen font-bold text-xs sm:text-sm px-2.5 py-1">
+              <div className="flex items-center justify-between border-b-4 border-black pb-3 sm:pb-4 flex-wrap gap-2">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <span className="bg-black text-white font-silkscreen font-bold text-[11px] sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
                     PROJECT {currentProject.id}
                   </span>
-                  <span className="font-silkscreen text-xs text-black/70 font-bold uppercase tracking-wider">
+                  <span className="font-silkscreen text-[11px] sm:text-xs text-black/70 font-bold uppercase tracking-wider">
                     / 0{PROJECTS.length}
                   </span>
                 </div>
 
-                <span className="font-silkscreen text-[11px] sm:text-xs font-bold uppercase tracking-widest px-3 py-1 bg-black/5 border-2 border-black">
+                <span className="font-silkscreen text-[10px] sm:text-xs font-bold uppercase tracking-widest px-2 sm:px-3 py-0.5 sm:py-1 bg-black/5 border-2 border-black">
                   {currentProject.category}
                 </span>
               </div>
 
               {/* Project Title & Tagline */}
-              <div className="space-y-1.5">
-                <h3 className="font-silkscreen font-bold text-xl sm:text-2xl md:text-3xl text-black leading-snug">
+              <div className="space-y-1 sm:space-y-1.5">
+                <h3 className="font-silkscreen font-bold text-lg xs:text-xl sm:text-2xl md:text-3xl text-black leading-snug">
                   {currentProject.title}
                 </h3>
-                <p className="font-silkscreen text-xs sm:text-sm text-black/60 font-semibold tracking-wide">
+                <p className="font-silkscreen text-[11px] sm:text-sm text-black/60 font-semibold tracking-wide">
                   {currentProject.tagline}
                 </p>
               </div>
 
               {/* Description */}
-              <p className="font-body text-base sm:text-lg leading-relaxed text-black/90 font-normal">
+              <p className="font-body text-sm xs:text-base sm:text-lg leading-relaxed text-black/90 font-normal">
                 {currentProject.description}
               </p>
             </div>
 
             {/* Bottom Section: Tech Badges */}
-            <div className="space-y-2 pt-4">
-              <div className="font-silkscreen text-[11px] font-bold tracking-widest text-black/70 uppercase">
+            <div className="space-y-1.5 sm:space-y-2 pt-3 sm:pt-4">
+              <div className="font-silkscreen text-[10px] sm:text-[11px] font-bold tracking-widest text-black/70 uppercase">
                 Technologies:
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {currentProject.technologies.map((tech) => (
                   <span
                     key={tech}
-                    className="font-silkscreen font-bold text-[10px] sm:text-xs px-2.5 py-1 bg-black text-white rounded-none border border-black transition-transform hover:scale-105"
+                    className="font-silkscreen font-bold text-[9px] xs:text-[10px] sm:text-xs px-2 py-0.5 sm:px-2.5 sm:py-1 bg-black text-white rounded-none border border-black transition-transform hover:scale-105"
                   >
                     {tech}
                   </span>
@@ -230,18 +247,18 @@ export default function Projects({ className = "" }) {
             </div>
 
             {/* Bottom Pixel Speech Tail */}
-            <div className="absolute -bottom-3 left-8 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[14px] border-t-black" />
-            <div className="absolute -bottom-1.5 left-8 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[9px] border-t-white" />
+            <div className="absolute -bottom-3 left-6 sm:left-8 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[14px] border-t-black" />
+            <div className="absolute -bottom-1.5 left-6 sm:left-8 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[9px] border-t-white" />
           </div>
 
           {/* Carousel Controls & Pagination */}
-          <div className="flex items-center justify-between pt-2">
+          <div className="flex items-center justify-between pt-1 sm:pt-2">
             {/* Prev / Next Buttons */}
-            <div className="flex items-center gap-3 font-silkscreen">
+            <div className="flex items-center gap-2 sm:gap-3 font-silkscreen">
               <button
                 onClick={handlePrev}
                 aria-label="Previous project"
-                className="bg-white text-black border-3 border-black px-4 sm:px-5 py-2 pixel-shadow-sm font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-150 hover:bg-black hover:text-white active:translate-x-0.5 active:translate-y-0.5 cursor-pointer"
+                className="bg-white text-black border-2 sm:border-3 border-black px-3 sm:px-5 py-1.5 sm:py-2 pixel-shadow-sm font-bold text-[11px] sm:text-sm uppercase tracking-wider transition-all duration-150 hover:bg-black hover:text-white active:translate-x-0.5 active:translate-y-0.5 cursor-pointer"
               >
                 ◀ PREV
               </button>
@@ -249,14 +266,14 @@ export default function Projects({ className = "" }) {
               <button
                 onClick={handleNext}
                 aria-label="Next project"
-                className="bg-white text-black border-3 border-black px-4 sm:px-5 py-2 pixel-shadow-sm font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-150 hover:bg-black hover:text-white active:translate-x-0.5 active:translate-y-0.5 cursor-pointer"
+                className="bg-white text-black border-2 sm:border-3 border-black px-3 sm:px-5 py-1.5 sm:py-2 pixel-shadow-sm font-bold text-[11px] sm:text-sm uppercase tracking-wider transition-all duration-150 hover:bg-black hover:text-white active:translate-x-0.5 active:translate-y-0.5 cursor-pointer"
               >
                 NEXT ▶
               </button>
             </div>
 
             {/* Pagination Indicators */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               {PROJECTS.map((proj, idx) => {
                 const isActive = currentIndex === idx;
                 return (
@@ -265,8 +282,8 @@ export default function Projects({ className = "" }) {
                     onClick={() => changeSlide(idx, idx > currentIndex ? 1 : -1)}
                     className={`transition-all duration-200 cursor-pointer border-2 border-black ${
                       isActive
-                        ? "w-8 h-3 bg-black"
-                        : "w-3 h-3 bg-white hover:bg-black/30"
+                        ? "w-6 sm:w-8 h-2.5 sm:h-3 bg-black"
+                        : "w-2.5 sm:w-3 h-2.5 sm:h-3 bg-white hover:bg-black/30"
                     }`}
                     aria-label={`Go to project ${idx + 1}`}
                   />

@@ -36,17 +36,17 @@ export default function SocialLinks({
   className = "",
 }) {
   return (
-    <div className={`flex flex-wrap items-center justify-center gap-4 ${className}`}>
+    <div className={`flex flex-wrap items-center justify-center gap-3 sm:gap-4 ${className}`}>
       {links.map((link) => (
         <a
           key={link.name}
           href={link.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative inline-flex items-center gap-3 px-5 py-2.5 bg-white text-black font-silkscreen font-bold text-sm md:text-base border-3 border-black pixel-shadow transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:pixel-shadow-lg active:translate-x-1 active:translate-y-1 active:shadow-none cursor-pointer"
+          className="group relative inline-flex items-center gap-2 sm:gap-3 px-4 py-2 sm:px-5 sm:py-2.5 bg-white text-black font-silkscreen font-bold text-xs sm:text-sm md:text-base border-2 sm:border-3 border-black pixel-shadow transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:pixel-shadow-lg active:translate-x-1 active:translate-y-1 active:shadow-none cursor-pointer"
         >
           {/* Pixel icon box */}
-          <span className="p-1.5 bg-black text-white rounded-none border border-black flex items-center justify-center group-hover:rotate-6 transition-transform">
+          <span className="p-1 sm:p-1.5 bg-black text-white rounded-none border border-black flex items-center justify-center group-hover:rotate-6 transition-transform">
             {link.icon}
           </span>
 

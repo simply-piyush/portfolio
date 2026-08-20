@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${silkscreen.variable} ${spaceGrotesk.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${silkscreen.variable} ${spaceGrotesk.variable} ${geistMono.variable} antialiased`}
     >
       <head>
         <link
@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
           fetchPriority="high"
         />
       </head>
-      <body className="min-h-full flex flex-col font-silkscreen selection:bg-black selection:text-white">
+      <body className="min-h-screen font-silkscreen selection:bg-black selection:text-white">
         {children}
       </body>
     </html>

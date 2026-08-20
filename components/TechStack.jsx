@@ -268,8 +268,8 @@ export default function TechStack({ className = "" }) {
             from: "center",
           },
           scrollTrigger: {
-            trigger: gridRef.current,
-            start: "top 90%", // Crosses bottom 10vh of viewport
+            trigger: containerRef.current,
+            start: "top 85%",
             toggleActions: "play none none reverse",
           },
         }
@@ -281,48 +281,48 @@ export default function TechStack({ className = "" }) {
   return (
     <section
       ref={containerRef}
-      className={`min-h-[365vh] flex flex-col justify-start px-6 sm:px-10 md:px-16 lg:px-20 pt-32 sm:pt-36 pb-20 ${className}`}
+      className={`min-h-fit md:min-h-[365vh] flex flex-col justify-start px-4 xs:px-6 sm:px-10 md:px-16 lg:px-20 py-20 sm:py-24 md:pt-36 md:pb-20 ${className}`}
     >
       {/* Maximum 50vw Container on the Left */}
-      <div className="w-full md:max-w-[50vw] text-left space-y-10">
+      <div className="w-full md:max-w-[50vw] text-left space-y-6 sm:space-y-10">
         
         {/* Refined 8-Bit Title Design */}
-        <div ref={headerRef} className="space-y-3">
+        <div ref={headerRef} className="space-y-2 sm:space-y-3">
           <div className="relative">
             <h2
-              className="font-silkscreen font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-black tracking-tight uppercase leading-tight"
+              className="font-silkscreen font-bold text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-black tracking-tight uppercase leading-tight"
               style={{
                 textShadow: "3px 3px 0px #000000",
               }}
             >
               TECH STACK & TOOLS
             </h2>
-            <div className="w-20 sm:w-28 h-1.5 bg-black mt-3 pixel-shadow-sm" />
+            <div className="w-16 sm:w-28 h-1.5 bg-black mt-2 sm:mt-3 pixel-shadow-sm" />
           </div>
         </div>
 
         {/* Floating Hexagonal Honeycomb Formation (Centered in Container) */}
         <div
           ref={gridRef}
-          className="flex flex-col items-center justify-center gap-2.5 sm:gap-3.5 md:gap-4 w-full pt-2 select-none"
+          className="flex flex-col items-center justify-center gap-1.5 xs:gap-2 sm:gap-3.5 md:gap-4 w-full pt-2 select-none"
         >
           {HEX_ROWS.map((row, rowIndex) => (
             <div
               key={rowIndex}
-              className="flex items-center justify-center gap-2.5 sm:gap-3.5 md:gap-4 w-full"
+              className="flex items-center justify-center gap-1.5 xs:gap-2 sm:gap-3.5 md:gap-4 w-full"
             >
               {row.map((tech) => (
                 <div
                   key={tech.name}
-                  className={`hex-tech-card group relative flex items-center justify-center w-14 h-14 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-2xl sm:rounded-3xl ${tech.bg} border-3 border-black pixel-shadow-sm transition-all duration-300 ease-out cursor-pointer hover:scale-125 hover:z-30 hover:-rotate-3 active:scale-95`}
+                  className={`hex-tech-card group relative flex items-center justify-center w-11 h-11 xs:w-13 xs:h-13 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-xl xs:rounded-2xl sm:rounded-3xl ${tech.bg} border-2 sm:border-3 border-black pixel-shadow-sm transition-all duration-300 ease-out cursor-pointer hover:scale-125 hover:z-30 hover:-rotate-3 active:scale-95`}
                 >
                   {/* Tech Icon */}
-                  <div className="transition-transform duration-200 group-hover:scale-110 flex items-center justify-center pointer-events-none">
+                  <div className="transition-transform duration-200 group-hover:scale-110 flex items-center justify-center pointer-events-none scale-75 xs:scale-85 sm:scale-100">
                     {tech.icon}
                   </div>
 
                   {/* Pixel Tooltip Popup on Hover */}
-                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-black text-white font-silkscreen text-[10px] sm:text-xs font-bold rounded-md whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-200 shadow-md border border-white/20 z-50">
+                  <div className="absolute -top-9 sm:-top-10 left-1/2 -translate-x-1/2 px-2 sm:px-2.5 py-0.5 sm:py-1 bg-black text-white font-silkscreen text-[9px] sm:text-xs font-bold rounded-md whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-200 shadow-md border border-white/20 z-50">
                     {tech.name}
                     {/* Tooltip Arrow */}
                     <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[4px] border-t-black" />
