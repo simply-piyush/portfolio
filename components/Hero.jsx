@@ -85,7 +85,7 @@ export default function Hero({
         {/* Hello World! - Pixel Speech Box */}
         <div ref={greetingRef} className="inline-block">
           <div className="relative group bg-white text-black border-3 border-black px-5 py-2.5 pixel-shadow transition-transform duration-200 hover:scale-105">
-            <span className="font-silkscreen text-xs sm:text-sm md:text-base font-bold tracking-widest uppercase">
+            <span className="font-silkscreen text-xs sm:text-sm md:text-base font-semibold tracking-widest uppercase">
               {greeting}
             </span>
 
@@ -97,12 +97,7 @@ export default function Hero({
 
         {/* Im Piyush Singh - Silkscreen Headline */}
         <div ref={nameRef} className="max-w-4xl">
-          <h1
-            className="font-silkscreen font-bold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-black leading-tight"
-            style={{
-              textShadow: "4px 4px 0px #000000",
-            }}
-          >
+          <h1 className="font-silkscreen font-bold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-black leading-tight">
             {name}
           </h1>
         </div>
