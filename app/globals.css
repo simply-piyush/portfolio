@@ -4,6 +4,7 @@
   --background: #ffffff;
   --foreground: #000000;
   --font-silk-val: var(--font-silkscreen), monospace;
+  --font-press-start-val: var(--font-press-start-2p), "Press Start 2P", monospace;
   --font-sans-val: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono-val: var(--font-geist-mono), monospace;
 }
@@ -12,6 +13,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-silkscreen: var(--font-silk-val);
+  --font-press-start: var(--font-press-start-val);
   --font-pixel: var(--font-silk-val);
   --font-sans: var(--font-sans-val);
   --font-body: var(--font-sans-val);
@@ -20,6 +22,10 @@
 
 .font-silkscreen {
   font-family: var(--font-silk-val);
+}
+
+.font-press-start {
+  font-family: var(--font-press-start-val);
 }
 
 .font-pixel {

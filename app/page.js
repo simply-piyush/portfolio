@@ -33,7 +33,7 @@ export default function Home() {
       <div id="home" className="relative z-10">
         <Hero
           greeting="Hello World!"
-          name="Im Piyush Singh"
+          name={`IM PIYUSH SINGH`}
         />
       </div>
 
