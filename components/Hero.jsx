@@ -98,13 +98,13 @@ export default function Hero({
 
           {/* Im Piyush Singh */}
           <div ref={nameRef} className="max-w-5xl px-2">
-            <h1 className="font-press-start uppercase font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-normal text-black leading-tight sm:leading-tight">
+            <h1 className="p-10 font-press-start uppercase font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-normal text-black leading-tight sm:leading-tight">
               {name}
             </h1>
           </div>
 
           {/* LinkedIn & GitHub Links */}
-          <div ref={linksRef} className="pt-2 sm:pt-4">
+          <div ref={linksRef} className="">
             <SocialLinks links={links} />
           </div>
         </div>
