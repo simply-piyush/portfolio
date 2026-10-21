@@ -27,6 +27,14 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Piyush Singh | Portfolio",
   description: "Portfolio of Piyush Singh",
+  icons: {
+    icon: [
+      {
+        url: "/favicon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {
